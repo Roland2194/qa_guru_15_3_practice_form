@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
 
@@ -24,34 +23,27 @@ public class PracticeFormTest {
     @Test
     void practiceFormNewTest() {
         open("/automation-practice-form");
-        $(byId("firstName")).setValue(newTest.getFirstName());
-        $(byId("lastName")).setValue(newTest.getLastName());
-        $(byId("userEmail")).setValue(newTest.getEmail());
-        $$(byClassName("custom-control-label")).findBy(text(newTest.getGender())).click();
-        $(byId("userNumber")).setValue(newTest.getUserNumber());
-        $(byId("dateOfBirthInput")).click();
-        $(byClassName("react-datepicker__month-select")).click();
-        $(byClassName("react-datepicker__month-select")).selectOption("June");
-        $(byClassName("react-datepicker__year-select")).click();
-        $(byClassName("react-datepicker__year-select")).selectOption("1994");
-        $(by("class", "react-datepicker__day react-datepicker__day--021")).doubleClick();
-        $(byId("subjectsInput")).setValue(newTest.getSubjects()).pressEnter();
-        $$(byClassName("custom-control-label")).findBy(text(newTest.getHobbies())).click();
-        $(byId("uploadPicture")).uploadFile(newTest.getPicture());
-        $(byId("currentAddress")).setValue(newTest.getAddress());
-        $(byId("react-select-3-input")).setValue(newTest.getState()).pressEnter();
-        $(byId("react-select-4-input")).setValue(newTest.getCity()).pressEnter();
-        $(byId("submit")).click();
+        $("#firstName").setValue(newTest.getFirstName());
+        $("#lastName").setValue(newTest.getLastName());
+        $("#userEmail").setValue(newTest.getEmail());
+        $$(".custom-control-label").findBy(text(newTest.getGender())).click();
+        $("#userNumber").setValue(newTest.getUserNumber());
+        $("#dateOfBirthInput").click();
+        $(".react-datepicker__month-select").click();
+        $(".react-datepicker__month-select").selectOption("June");
+        $(".react-datepicker__year-select").click();
+        $(".react-datepicker__year-select").selectOption("1994");
+        $(".react-datepicker__day--021:not(react-datepicker__day--outside-month)").click();
+        $("#subjectsInput").setValue(newTest.getSubjects()).pressEnter();
+        $$(".custom-control-label").findBy(text(newTest.getHobbies())).click();
+        $("#uploadPicture").uploadFile(newTest.getPicture());
+        $("#currentAddress").setValue(newTest.getAddress());
+        $("#react-select-3-input").setValue(newTest.getState()).pressEnter();
+        $("#react-select-4-input").setValue(newTest.getCity()).pressEnter();
+        $("#submit").click();
 
-        $$(byClassName("table-responsive")).findBy(text("Student Name")).shouldHave(text(newTest.getFirstName() + " " + newTest.getLastName()));
-        $$(byClassName("table-responsive")).findBy(text("Student Email")).shouldHave(text(newTest.getEmail()));
-        $$(byClassName("table-responsive")).findBy(text("Gender")).shouldHave(text(newTest.getGender()));
-        $$(byClassName("table-responsive")).findBy(text("Mobile")).shouldHave(text(newTest.getUserNumber()));
-        $$(byClassName("table-responsive")).findBy(text("Date of Birth")).shouldHave(text("21 June,1994"));
-        $$(byClassName("table-responsive")).findBy(text("Subjects")).shouldHave(text(newTest.getSubjects()));
-        $$(byClassName("table-responsive")).findBy(text("Hobbies")).shouldHave(text(newTest.getHobbies()));
-        $$(byClassName("table-responsive")).findBy(text("Picture")).shouldHave(text(newTest.getPicture().getName()));
-        $$(byClassName("table-responsive")).findBy(text("Address")).shouldHave(text(newTest.getAddress()));
-        $$(byClassName("table-responsive")).findBy(text("State and City")).shouldHave((text(newTest.getState()))).shouldHave(text(" " + newTest.getCity()));
+        $(".table-responsive").shouldHave(text(newTest.getFirstName() + " " + newTest.getLastName()), text(newTest.getEmail()),
+                text(newTest.getGender()), text(newTest.getUserNumber()), text("21 June,1994"), text(newTest.getSubjects()),text(newTest.getHobbies()), text(newTest.getPicture().getName()),
+                text(newTest.getAddress()), text(newTest.getState()), text(" " + newTest.getCity()));
     }
 }
